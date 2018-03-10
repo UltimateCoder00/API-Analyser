@@ -14,4 +14,11 @@ describe DataAnalysis do
       expect(data_analysis.purchases.class).to eq Purchases
     end
   end
+
+  describe '#most_sold' do
+    it 'Returns most sold item' do
+      most_sold_item = "Heavy Duty Concrete Watch"
+      expect(data_analysis.most_sold).to eq most_sold_item
+    end
+  end
 end
