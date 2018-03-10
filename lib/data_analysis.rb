@@ -10,20 +10,11 @@ class DataAnalysis
   end
 
   def most_sold
-    items_sold = {}
-    purchases.json_response["data"].each do |data|
-      items_sold.include?(data["item"]) ? items_sold[data["item"]] += 1 : items_sold[data["item"]] = 1
-    end
-    items_sold.sort_by { |key, val| val }.last.first
+    most_purchase_by("item")
   end
 
   def most_loyal
-    items_sold = {}
-    purchases.json_response["data"].each do |data|
-      items_sold.include?(data["user_id"]) ? items_sold[data["user_id"]] += 1 : items_sold[data["user_id"]] = 1
-    end
-    user_id = items_sold.sort_by { |key, val| val }.last.first
-
+    user_id = most_purchase_by("user_id")
     users.json_response["data"].each do |data|
       return data["email"] if data["id"] == user_id
     end
@@ -45,5 +36,15 @@ class DataAnalysis
       end
     end
     total_spend
+  end
+
+  private
+
+  def most_purchase_by(key)
+    items_sold = {}
+    purchases.json_response["data"].each do |data|
+      items_sold.include?(data[key]) ? items_sold[data[key]] += 1 : items_sold[data[key]] = 1
+    end
+    items_sold.sort_by { |key, val| val }.last.first
   end
 end
