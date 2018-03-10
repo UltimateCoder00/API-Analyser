@@ -28,4 +28,22 @@ class DataAnalysis
       return data["email"] if data["id"] == user_id
     end
   end
+
+  def total_spend(email)
+    total_spend = 0
+    user_id = nil
+
+    users.json_response["data"].each do |data|
+      if data["email"] == email
+        user_id = data["id"]
+      end
+    end
+
+    purchases.json_response["data"].each do |data|
+      if data["user_id"] == user_id
+        total_spend += data["spend"].to_f
+      end
+    end
+    total_spend
+  end
 end
