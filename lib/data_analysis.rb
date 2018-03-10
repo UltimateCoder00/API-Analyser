@@ -19,11 +19,7 @@ class DataAnalysis
 
   def total_spend(email)
     total_spend = 0
-    user_id = nil
-
-    users.json_response["data"].each do |data|
-      user_id = data["id"] if data["email"] == email
-    end
+    user_id = find_id_from(email)
 
     purchases.json_response["data"].each do |data|
       total_spend += data["spend"].to_f if data["user_id"] == user_id
@@ -45,6 +41,12 @@ class DataAnalysis
   def find_email_from(user_id)
     users.json_response["data"].each do |data|
       return data["email"] if data["id"] == user_id
+    end
+  end
+
+  def find_id_from(email)
+    users.json_response["data"].each do |data|
+      return data["id"] if data["email"] == email
     end
   end
 end
