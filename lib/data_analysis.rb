@@ -18,14 +18,7 @@ class DataAnalysis
   end
 
   def total_spend(email)
-    total_spend = 0
-    user_id = find_id_from(email)
-
-    purchases.json_response["data"].each do |data|
-      total_spend += data["spend"].to_f if data["user_id"] == user_id
-    end
-
-    total_spend
+    total_spend_from(find_id_from(email))
   end
 
   private
@@ -50,5 +43,13 @@ class DataAnalysis
     users.json_response["data"].each do |data|
       return data[return_key] if data[given_key] == value
     end
+  end
+
+  def total_spend_from(user_id)
+    total_spend = 0
+    purchases.json_response["data"].each do |data|
+      total_spend += data["spend"].to_f if data["user_id"] == user_id
+    end
+    total_spend
   end
 end
