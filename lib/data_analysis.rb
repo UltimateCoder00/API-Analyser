@@ -14,11 +14,11 @@ class DataAnalysis
   end
 
   def most_loyal
-    find_email_from(most_purchase_by("user_id"))
+    email_of(most_purchase_by("user_id"))
   end
 
   def total_spend(email)
-    total_spend_from(find_id_from(email))
+    total_spend_of(id_of(email))
   end
 
   private
@@ -31,11 +31,11 @@ class DataAnalysis
     items_sold.sort_by { |key, val| val }.last.first
   end
 
-  def find_email_from(user_id)
+  def email_of(user_id)
     find_customer_details("email", "id", user_id)
   end
 
-  def find_id_from(email)
+  def id_of(email)
     find_customer_details("id", "email", email)
   end
 
@@ -45,7 +45,7 @@ class DataAnalysis
     end
   end
 
-  def total_spend_from(user_id)
+  def total_spend_of(user_id)
     total_spend = 0
     purchases.json_response["data"].each do |data|
       total_spend += data["spend"].to_f if data["user_id"] == user_id
