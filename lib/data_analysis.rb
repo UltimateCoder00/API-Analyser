@@ -15,9 +15,7 @@ class DataAnalysis
 
   def most_loyal
     user_id = most_purchase_by("user_id")
-    users.json_response["data"].each do |data|
-      return data["email"] if data["id"] == user_id
-    end
+    find_email_from(user_id)
   end
 
   def total_spend(email)
@@ -25,16 +23,13 @@ class DataAnalysis
     user_id = nil
 
     users.json_response["data"].each do |data|
-      if data["email"] == email
-        user_id = data["id"]
-      end
+      user_id = data["id"] if data["email"] == email
     end
 
     purchases.json_response["data"].each do |data|
-      if data["user_id"] == user_id
-        total_spend += data["spend"].to_f
-      end
+      total_spend += data["spend"].to_f if data["user_id"] == user_id
     end
+
     total_spend
   end
 
@@ -46,5 +41,11 @@ class DataAnalysis
       items_sold.include?(data[key]) ? items_sold[data[key]] += 1 : items_sold[data[key]] = 1
     end
     items_sold.sort_by { |key, val| val }.last.first
+  end
+
+  def find_email_from(user_id)
+    users.json_response["data"].each do |data|
+      return data["email"] if data["id"] == user_id
+    end
   end
 end
