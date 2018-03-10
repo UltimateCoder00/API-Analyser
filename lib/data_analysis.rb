@@ -40,9 +40,8 @@ class DataAnalysis
   end
 
   def find_customer_details(return_key, given_key, value)
-    users.json_response["data"].each do |data|
-      return data[return_key] if data[given_key] == value
-    end
+    customer_index = users.json_response["data"].index {|h| h[given_key] == value }
+    users.json_response["data"][customer_index][return_key]
   end
 
   def total_spend_of(user_id)
