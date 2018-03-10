@@ -16,4 +16,16 @@ class DataAnalysis
     end
     items_sold.sort_by { |key, val| val }.last.first
   end
+
+  def most_loyal
+    items_sold = {}
+    purchases.json_response["data"].each do |data|
+      items_sold.include?(data["user_id"]) ? items_sold[data["user_id"]] += 1 : items_sold[data["user_id"]] = 1
+    end
+    user_id = items_sold.sort_by { |key, val| val }.last.first
+
+    users.json_response["data"].each do |data|
+      return data["email"] if data["id"] == user_id
+    end
+  end
 end
