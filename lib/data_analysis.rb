@@ -39,14 +39,16 @@ class DataAnalysis
   end
 
   def find_email_from(user_id)
-    users.json_response["data"].each do |data|
-      return data["email"] if data["id"] == user_id
-    end
+    find_customer_details("email", "id", user_id)
   end
 
   def find_id_from(email)
+    find_customer_details("id", "email", email)
+  end
+
+  def find_customer_details(return_key, given_key, value)
     users.json_response["data"].each do |data|
-      return data["id"] if data["email"] == email
+      return data[return_key] if data[given_key] == value
     end
   end
 end
