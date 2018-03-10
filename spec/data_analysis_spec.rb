@@ -28,4 +28,20 @@ describe DataAnalysis do
       expect(data_analysis.most_loyal).to eq most_sold_loyal_customer
     end
   end
+
+  describe '#total_spend(email)' do
+    it 'Returns total spend of customer' do
+      email = "travis_kshlerin@wunsch.net"
+      total_spend = 336.76
+      expect(data_analysis.total_spend(email)).to eq total_spend
+
+      email = "eliseo.zieme@bosco.info"
+      total_spend = 49.77
+      expect(data_analysis.total_spend(email)).to eq total_spend
+
+      email = "pearlie.yost@greenholt.biz"
+      total_spend = 303.06
+      expect(data_analysis.total_spend(email)).to eq total_spend
+    end
+  end
 end
