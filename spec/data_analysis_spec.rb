@@ -21,4 +21,11 @@ describe DataAnalysis do
       expect(data_analysis.most_sold).to eq most_sold_item
     end
   end
+
+  describe '#most_loyal' do
+    it 'Returns most loyal customer' do
+      most_sold_loyal_customer = "travis_kshlerin@wunsch.net"
+      expect(data_analysis.most_loyal).to eq most_sold_loyal_customer
+    end
+  end
 end
