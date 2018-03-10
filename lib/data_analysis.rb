@@ -14,8 +14,7 @@ class DataAnalysis
   end
 
   def most_loyal
-    user_id = most_purchase_by("user_id")
-    find_email_from(user_id)
+    find_email_from(most_purchase_by("user_id"))
   end
 
   def total_spend(email)
