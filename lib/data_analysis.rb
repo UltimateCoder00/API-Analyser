@@ -43,10 +43,8 @@ class DataAnalysis
   end
 
   def total_spend_of(user_id)
-    total_spend = 0
-    purchases.each do |data|
-      total_spend += data["spend"].to_f if data["user_id"] == user_id
-    end
-    total_spend
+    purchases.each_with_object(:sum => 0) do |data, hash|
+      hash[:sum] += data["spend"].to_f if data["user_id"] == user_id
+    end[:sum]
   end
 end
