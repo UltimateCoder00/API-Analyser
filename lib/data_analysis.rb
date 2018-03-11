@@ -18,6 +18,7 @@ class DataAnalysis
   end
 
   def total_spend(email)
+    fail "The email does not exist" unless exists?(email)
     total_spend_of(id_of(email))
   end
 
@@ -46,5 +47,9 @@ class DataAnalysis
     purchases.each_with_object("sum" => 0) do |data, hash|
       hash["sum"] += data["spend"].to_f if data["user_id"] == user_id
     end["sum"]
+  end
+
+  def exists?(email)
+    users.any? { |hash| hash["email"] == email }
   end
 end
