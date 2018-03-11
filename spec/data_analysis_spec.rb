@@ -4,13 +4,13 @@ describe DataAnalysis do
   subject(:data_analysis) {described_class.new}
 
   describe '#users' do
-    it 'Contains Users class' do
+    it 'Contains array of users data' do
       expect(data_analysis.users.class).to eq Array
     end
   end
 
   describe '#purchases' do
-    it 'Contains Purchases class' do
+    it 'Contains array of purchases data' do
       expect(data_analysis.purchases.class).to eq Array
     end
   end
