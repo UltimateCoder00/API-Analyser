@@ -43,5 +43,11 @@ describe DataAnalysis do
       total_spend = 303.06
       expect(data_analysis.total_spend(email)).to eq total_spend
     end
+
+    it 'Error message for incorrect email' do
+      email = "abcdef1243231432@eagjoasgnsadgn.com"
+      error_message = "The email does not exist"
+      expect{data_analysis.total_spend(email)}.to raise_error error_message
+    end
   end
 end
