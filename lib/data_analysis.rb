@@ -5,8 +5,8 @@ class DataAnalysis
   attr_reader :users, :purchases
 
   def initialize(users = Users.new, purchases=Purchases.new)
-    @users = users
-    @purchases = purchases
+    @users = users.json_response["data"]
+    @purchases = purchases.json_response["data"]
   end
 
   def most_sold
@@ -25,7 +25,7 @@ class DataAnalysis
 
   def most_purchase_by(key)
     items_sold = {}
-    purchases.json_response["data"].each do |data|
+    purchases.each do |data|
       items_sold.include?(data[key]) ? items_sold[data[key]] += 1 : items_sold[data[key]] = 1
     end
     items_sold.sort_by { |key, val| val }.last.first
@@ -40,13 +40,13 @@ class DataAnalysis
   end
 
   def find_customer_details(return_key, given_key, value)
-    customer_index = users.json_response["data"].index {|h| h[given_key] == value }
-    users.json_response["data"][customer_index][return_key]
+    customer_index = users.index {|h| h[given_key] == value }
+    users[customer_index][return_key]
   end
 
   def total_spend_of(user_id)
     total_spend = 0
-    purchases.json_response["data"].each do |data|
+    purchases.each do |data|
       total_spend += data["spend"].to_f if data["user_id"] == user_id
     end
     total_spend
