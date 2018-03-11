@@ -5,13 +5,13 @@ describe DataAnalysis do
 
   describe '#users' do
     it 'Contains Users class' do
-      expect(data_analysis.users.class).to eq Users
+      expect(data_analysis.users.class).to eq Array
     end
   end
 
   describe '#purchases' do
     it 'Contains Purchases class' do
-      expect(data_analysis.purchases.class).to eq Purchases
+      expect(data_analysis.purchases.class).to eq Array
     end
   end
 
