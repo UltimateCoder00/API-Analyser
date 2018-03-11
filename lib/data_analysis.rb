@@ -24,11 +24,9 @@ class DataAnalysis
   private
 
   def most_purchase_by(key)
-    items_sold = {}
-    purchases.each do |data|
-      items_sold.include?(data[key]) ? items_sold[data[key]] += 1 : items_sold[data[key]] = 1
-    end
-    items_sold.sort_by { |key, val| val }.last.first
+    purchases.each_with_object(Hash.new(0)) do |data, hash|
+      hash[data[key]] += 1
+    end.max_by { |k, v| v }.first
   end
 
   def email_of(user_id)
